@@ -11,11 +11,11 @@
   - Change Machine Host/IP in hosts
   - Change MySQL PassWord in mysqlconfig/mysqlconfig.sql
 
-TODO:
- 1:Setup Wordpress
- 2:Use vars-prompt to setup the DataBase Password?
+# TODO:
+  - Setup Wordpress
+  - Use vars-prompt to setup the DataBase Password?
 
-Change Log:
-  Init-2015-03-22
-  Support Setup Mysql-2015-03-22
+# Change Log:
+  - Init-2015-03-22
+  - Support Setup MySQL-2015-03-22
  
