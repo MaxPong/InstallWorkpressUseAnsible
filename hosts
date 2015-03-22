@@ -1,0 +1,9 @@
+# hosts
+[production-Workpress]
+192.168.122.18 ansible_ssh_user=root
+
+[staging-Workpress]
+192.168.122.135 ansible_ssh_user=root
+
+[MySQL]
+192.168.122.161 ansible_ssh_user=root

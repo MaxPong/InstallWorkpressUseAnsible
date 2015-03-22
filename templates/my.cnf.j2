@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+[mysqld]
+user=mysql
+character-set-server=utf8
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+symbolic-links=0
+#Max Thread Concurrent
+thread_concurrency= {{ mysql_thread_concurrency }}
+# Configure the buffer pool
+innodb_buffer_pool_size = {{ innodb_buffer_pool_size_mb|default(128) }}M
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid

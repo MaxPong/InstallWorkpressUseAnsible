@@ -1,0 +1,37 @@
+---
+ - name: Configure MySQL
+   hosts: MySQL
+
+
+   tasks:
+     - name: install MySql
+       yum: name=mysql-server state=installed
+
+
+     - name: Calculate InnoDB buffer pool size
+       set_fact: innodb_buffer_pool_size_mb=512
+
+     - name: Calculate MySQL Thread Concurrent
+       set_fact: mysql_thread_concurrency="{{ ansible_processor_count }}"
+
+     - name: Configure MySQL
+       template: src=templates/my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+       notify: restart mysql
+
+     - name: Start MySQL
+       service: name=mysqld state=started enabled=yes
+
+     - name: Copy MySQL Config
+       copy: dest=/var/lib/mysql/mysqlconfig.sh src=mysqlconfig/mysqlconfig.sh
+
+     - name: Copy MySQL Config Scripts
+       copy: dest=/var/lib/mysql/mysqlconfig.sql src=mysqlconfig/mysqlconfig.sql
+
+     - name: Add Exec Right to mysqlconfig
+       file: path=/var/lib/mysql/mysqlconfig.sh mode=770
+
+     - name: Create New User & DataBase
+       shell: /var/lib/mysql/mysqlconfig.sh
+   handlers:
+      - name: restart mysql
+        service: name=mysqld state=restarted 
